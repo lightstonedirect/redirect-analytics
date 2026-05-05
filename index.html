@@ -1,0 +1,284 @@
+
+<h2 class="sr-only">REdirect Podcast Analytics Dashboard — Jan through April 2026 across Spotify, Apple, YouTube, and FameHost</h2>
+
+<style>
+  .dash { font-family: var(--font-sans); padding: 1rem 0; }
+  .section-title { font-size: 13px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin: 2rem 0 0.75rem; }
+  .tab-bar { display: flex; gap: 6px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .tab { padding: 6px 14px; font-size: 13px; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); cursor: pointer; background: transparent; color: var(--color-text-secondary); }
+  .tab.active { background: var(--color-background-secondary); color: var(--color-text-primary); border-color: var(--color-border-primary); font-weight: 500; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
+  .card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 14px 16px; }
+  .card-label { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px; }
+  .card-value { font-size: 22px; font-weight: 500; color: var(--color-text-primary); }
+  .card-delta { font-size: 12px; margin-top: 2px; }
+  .up { color: #3B6D11; } .down { color: #A32D2D; }
+  .chart-wrap { position: relative; width: 100%; }
+  .legend { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 8px; font-size: 12px; color: var(--color-text-secondary); }
+  .legend span { display: flex; align-items: center; gap: 5px; }
+  .swatch { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+</style>
+
+<div class="dash">
+  <div class="tab-bar">
+    <button class="tab active" onclick="showTab('overview')">Overview</button>
+    <button class="tab" onclick="showTab('spotify')">Spotify</button>
+    <button class="tab" onclick="showTab('apple')">Apple</button>
+    <button class="tab" onclick="showTab('youtube')">YouTube</button>
+    <button class="tab" onclick="showTab('fame')">FameHost</button>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div id="panel-overview" class="panel active">
+    <div class="cards">
+      <div class="card"><div class="card-label">Total downloads (all platforms)</div><div class="card-value">1,145</div><div class="card-delta" style="color: var(--color-text-secondary)">Jan – Apr 2026</div></div>
+      <div class="card"><div class="card-label">Peak monthly downloads</div><div class="card-value">324</div><div class="card-delta" style="color: var(--color-text-secondary)">Jan 2026</div></div>
+      <div class="card"><div class="card-label">Total listeners (all)</div><div class="card-value">505</div><div class="card-delta" style="color: var(--color-text-secondary)">Jan – Apr 2026</div></div>
+      <div class="card"><div class="card-label">Total followers gained</div><div class="card-value">40+</div><div class="card-delta" style="color: var(--color-text-secondary)">Spotify + YouTube</div></div>
+    </div>
+    <div class="legend">
+      <span><span class="swatch" style="background:#378ADD"></span>Downloads</span>
+      <span><span class="swatch" style="background:#1D9E75"></span>Listeners</span>
+    </div>
+    <div class="chart-wrap" style="height: 260px;"><canvas id="chartOverview" role="img" aria-label="Line chart of total downloads and listeners Jan–Apr 2026. Downloads declined from 324 in Jan to 191 in Apr. Listeners grew from 53 to 160."></canvas></div>
+    <p class="section-title">Downloads by platform (total Jan–Apr)</p>
+    <div class="chart-wrap" style="height: 220px;"><canvas id="chartPlatformBar" role="img" aria-label="Bar chart comparing total downloads by platform. YouTube: 605, Spotify: 237, FameHost: 303."></canvas></div>
+  </div>
+
+  <!-- SPOTIFY -->
+  <div id="panel-spotify" class="panel">
+    <div class="cards">
+      <div class="card"><div class="card-label">Total plays (Jan–Apr)</div><div class="card-value">237</div></div>
+      <div class="card"><div class="card-label">Total listeners (Jan–Apr)</div><div class="card-value">126</div></div>
+      <div class="card"><div class="card-label">Followers (Apr)</div><div class="card-value">26</div><div class="card-delta up">+117% since Jan</div></div>
+      <div class="card"><div class="card-label">Best episode (7-day)</div><div class="card-value">47</div><div class="card-delta" style="color:var(--color-text-secondary)">Greg Fink</div></div>
+    </div>
+    <div class="legend">
+      <span><span class="swatch" style="background:#378ADD"></span>Downloads</span>
+      <span><span class="swatch" style="background:#1D9E75"></span>Listeners</span>
+      <span><span class="swatch" style="background:#EF9F27; border:1px dashed #BA7517;"></span>Followers</span>
+    </div>
+    <div class="chart-wrap" style="height: 240px;"><canvas id="chartSpotifyLine" role="img" aria-label="Line chart of Spotify downloads, listeners, and followers over Jan–Apr 2026."></canvas></div>
+    <p class="section-title">Plays by episode over time</p>
+    <div class="legend">
+      <span><span class="swatch" style="background:#7F77DD"></span>Greg Fink</span>
+      <span><span class="swatch" style="background:#1D9E75"></span>Sanford Blumenthal</span>
+      <span><span class="swatch" style="background:#D85A30"></span>R. Hill Pt 1</span>
+      <span><span class="swatch" style="background:#D4537E"></span>R. Hill Pt 2</span>
+      <span><span class="swatch" style="background:#BA7517"></span>J. Pawlowski</span>
+      <span><span class="swatch" style="background:#378ADD; border:1px dashed #185FA5;"></span>R. Barkham</span>
+    </div>
+    <div class="chart-wrap" style="height: 240px;"><canvas id="chartSpotifyEp" role="img" aria-label="Grouped bar chart showing Spotify plays per episode per month."></canvas></div>
+  </div>
+
+  <!-- APPLE -->
+  <div id="panel-apple" class="panel">
+    <div class="cards">
+      <div class="card"><div class="card-label">Total plays (Jan–Apr)</div><div class="card-value">197</div></div>
+      <div class="card"><div class="card-label">Listeners</div><div class="card-value">24</div></div>
+      <div class="card"><div class="card-label">Followers</div><div class="card-value">14</div></div>
+      <div class="card"><div class="card-label">Engaged listeners</div><div class="card-value">15</div></div>
+    </div>
+    <p class="section-title">Plays by episode</p>
+    <div class="legend">
+      <span><span class="swatch" style="background:#7F77DD"></span>Greg Fink</span>
+      <span><span class="swatch" style="background:#1D9E75"></span>Sanford Blumenthal</span>
+      <span><span class="swatch" style="background:#D85A30"></span>R. Hill Pt 1</span>
+      <span><span class="swatch" style="background:#D4537E"></span>R. Hill Pt 2</span>
+      <span><span class="swatch" style="background:#BA7517"></span>J. Pawlowski</span>
+    </div>
+    <div class="chart-wrap" style="height: 220px;"><canvas id="chartAppleEp" role="img" aria-label="Horizontal bar chart of Apple Podcasts plays per episode. Greg Fink leads with 104 plays."></canvas></div>
+    <p class="section-title">Avg consumption rate by episode</p>
+    <div class="chart-wrap" style="height: 220px;"><canvas id="chartAppleConsumption" role="img" aria-label="Bar chart of average consumption rate per episode on Apple Podcasts."></canvas></div>
+  </div>
+
+  <!-- YOUTUBE -->
+  <div id="panel-youtube" class="panel">
+    <div class="cards">
+      <div class="card"><div class="card-label">Total views (Jan–May)</div><div class="card-value">612</div></div>
+      <div class="card"><div class="card-label">Total listeners (Jan–May)</div><div class="card-value">392</div></div>
+      <div class="card"><div class="card-label">New followers (Jan–May)</div><div class="card-value">16</div></div>
+      <div class="card"><div class="card-label">Best month</div><div class="card-value">Jan</div><div class="card-delta" style="color:var(--color-text-secondary)">218 views</div></div>
+    </div>
+    <div class="legend">
+      <span><span class="swatch" style="background:#D85A30"></span>Views</span>
+      <span><span class="swatch" style="background:#1D9E75"></span>Listeners</span>
+    </div>
+    <div class="chart-wrap" style="height: 240px;"><canvas id="chartYouTubeLine" role="img" aria-label="Line chart of YouTube views and listeners Jan–May 2026. Both declined over time."></canvas></div>
+    <p class="section-title">Views by episode over time</p>
+    <div class="legend">
+      <span><span class="swatch" style="background:#7F77DD"></span>Greg Fink</span>
+      <span><span class="swatch" style="background:#1D9E75"></span>Sanford Blumenthal</span>
+      <span><span class="swatch" style="background:#D85A30"></span>R. Hill Pt 1</span>
+      <span><span class="swatch" style="background:#D4537E"></span>R. Hill Pt 2</span>
+      <span><span class="swatch" style="background:#BA7517"></span>J. Pawlowski</span>
+    </div>
+    <div class="chart-wrap" style="height: 240px;"><canvas id="chartYouTubeEp" role="img" aria-label="Grouped bar chart of YouTube views per episode per month Jan–May 2026."></canvas></div>
+  </div>
+
+  <!-- FAMEHOST -->
+  <div id="panel-fame" class="panel">
+    <div class="cards">
+      <div class="card"><div class="card-label">Total downloads (Jan–Apr)</div><div class="card-value">303</div></div>
+      <div class="card"><div class="card-label">Total listeners (Jan–Apr)</div><div class="card-value">201</div></div>
+      <div class="card"><div class="card-label">Best month (downloads)</div><div class="card-value">Apr</div><div class="card-delta up">86 downloads</div></div>
+      <div class="card"><div class="card-label">Listener growth Jan→Apr</div><div class="card-value">+315%</div><div class="card-delta up">20 → 83</div></div>
+    </div>
+    <div class="legend">
+      <span><span class="swatch" style="background:#D4537E"></span>Downloads</span>
+      <span><span class="swatch" style="background:#1D9E75"></span>Listeners</span>
+    </div>
+    <div class="chart-wrap" style="height: 240px;"><canvas id="chartFameLine" role="img" aria-label="Line chart of FameHost downloads and listeners Jan–Apr 2026. Strong listener growth in Apr."></canvas></div>
+    <p class="section-title">Plays by episode (FameHost + Apple)</p>
+    <div class="legend">
+      <span><span class="swatch" style="background:#7F77DD"></span>Greg Fink</span>
+      <span><span class="swatch" style="background:#1D9E75"></span>Sanford Blumenthal</span>
+      <span><span class="swatch" style="background:#D85A30"></span>R. Hill Pt 1</span>
+      <span><span class="swatch" style="background:#D4537E"></span>R. Hill Pt 2</span>
+      <span><span class="swatch" style="background:#BA7517"></span>J. Pawlowski</span>
+      <span><span class="swatch" style="background:#378ADD; border:1px dashed #185FA5;"></span>R. Barkham</span>
+    </div>
+    <div class="chart-wrap" style="height: 240px;"><canvas id="chartFameEp" role="img" aria-label="Grouped bar chart of FameHost plus Apple plays per episode per month."></canvas></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+function showTab(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+const months = ['Jan','Feb','Mar','Apr'];
+const epColors = ['#7F77DD','#1D9E75','#D85A30','#D4537E','#BA7517','#378ADD'];
+const epNames = ['Greg Fink','Sanford Blumenthal','Richard Hill Pt 1','Richard Hill Pt 2','John Pawlowski','Richard Barkham'];
+
+const defOpts = (title) => ({
+  responsive: true, maintainAspectRatio: false,
+  plugins: { legend: { display: false }, tooltip: { mode: 'index', intersect: false } },
+  scales: {
+    x: { grid: { color: 'rgba(128,128,128,0.1)' }, ticks: { color: '#888', font: { size: 11 } } },
+    y: { grid: { color: 'rgba(128,128,128,0.1)' }, ticks: { color: '#888', font: { size: 11 } }, beginAtZero: true }
+  }
+});
+
+// OVERVIEW line
+new Chart(document.getElementById('chartOverview'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: [
+      { label: 'Downloads', data: [324,374,256,191], borderColor:'#378ADD', backgroundColor:'rgba(55,138,221,0.08)', tension:0.3, fill:true, pointRadius:4, borderWidth:2 },
+      { label: 'Listeners', data: [53,133,159,160], borderColor:'#1D9E75', backgroundColor:'rgba(29,158,117,0.08)', tension:0.3, fill:true, pointRadius:4, borderDash:[5,3], borderWidth:2 }
+    ]
+  },
+  options: defOpts()
+});
+
+// Platform bar
+new Chart(document.getElementById('chartPlatformBar'), {
+  type: 'bar',
+  data: {
+    labels: ['YouTube','FameHost (incl. Apple)','Spotify'],
+    datasets: [{ label: 'Total downloads', data: [605,303,237], backgroundColor:['#D85A30','#D4537E','#1D9E75'], borderRadius:4 }]
+  },
+  options: { ...defOpts(), indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { grid: { color: 'rgba(128,128,128,0.1)' }, ticks: { color:'#888', font:{size:11} }, beginAtZero:true }, y: { grid:{ display:false }, ticks:{color:'#888',font:{size:11}}} } }
+});
+
+// SPOTIFY line
+new Chart(document.getElementById('chartSpotifyLine'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: [
+      { label: 'Downloads', data: [67,69,70,31], borderColor:'#378ADD', tension:0.3, fill:false, pointRadius:4, borderWidth:2 },
+      { label: 'Listeners', data: [33,43,31,19], borderColor:'#1D9E75', tension:0.3, fill:false, pointRadius:4, borderWidth:2, borderDash:[5,3] },
+      { label: 'Followers', data: [12,18,24,26], borderColor:'#EF9F27', tension:0.3, fill:false, pointRadius:4, borderWidth:2, borderDash:[2,2] }
+    ]
+  },
+  options: defOpts()
+});
+
+// Spotify episodes
+const spotEpData = [[39,32,13,0],[28,26,16,0],[0,11,19,1],[0,0,22,6],[0,0,0,17],[0,0,0,7]];
+new Chart(document.getElementById('chartSpotifyEp'), {
+  type: 'bar',
+  data: {
+    labels: months,
+    datasets: spotEpData.map((d,i) => ({ label: epNames[i], data: d, backgroundColor: epColors[i], borderRadius:3 }))
+  },
+  options: { ...defOpts(), plugins: { legend:{ display:false } }, scales: { x:{ stacked:false, grid:{color:'rgba(128,128,128,0.1)'}, ticks:{color:'#888',font:{size:11}} }, y:{ stacked:false, beginAtZero:true, grid:{color:'rgba(128,128,128,0.1)'}, ticks:{color:'#888',font:{size:11}} } } }
+});
+
+// Apple episodes horizontal
+new Chart(document.getElementById('chartAppleEp'), {
+  type: 'bar',
+  data: {
+    labels: ['Greg Fink','Sanford Blumenthal','R. Hill Pt 2','John Pawlowski','R. Hill Pt 1'],
+    datasets: [{ label: 'Plays', data: [104,49,20,17,7], backgroundColor:['#7F77DD','#1D9E75','#D4537E','#BA7517','#D85A30'], borderRadius:4 }]
+  },
+  options: { ...defOpts(), indexAxis:'y', plugins:{legend:{display:false}}, scales:{ x:{beginAtZero:true,grid:{color:'rgba(128,128,128,0.1)'},ticks:{color:'#888',font:{size:11}}}, y:{grid:{display:false},ticks:{color:'#888',font:{size:11}}} } }
+});
+
+// Apple consumption
+new Chart(document.getElementById('chartAppleConsumption'), {
+  type: 'bar',
+  data: {
+    labels: ['Greg Fink','R. Hill Pt 2','John Pawlowski','Sanford Blumenthal','R. Hill Pt 1'],
+    datasets: [{ label: 'Avg Consumption', data: [67,67,64,57,50], backgroundColor:'#7F77DD', borderRadius:4 }]
+  },
+  options: { ...defOpts(), plugins:{legend:{display:false}}, scales:{ x:{grid:{color:'rgba(128,128,128,0.1)'},ticks:{color:'#888',font:{size:11}}}, y:{beginAtZero:true,max:100,grid:{color:'rgba(128,128,128,0.1)'},ticks:{color:'#888',font:{size:11},callback:v=>v+'%'}} } }
+});
+
+// YouTube line
+new Chart(document.getElementById('chartYouTubeLine'), {
+  type: 'line',
+  data: {
+    labels: ['Jan','Feb','Mar','Apr','May'],
+    datasets: [
+      { label: 'Views', data: [218,190,123,74,7], borderColor:'#D85A30', tension:0.3, fill:false, pointRadius:4, borderWidth:2 },
+      { label: 'Listeners', data: [130,108,84,58,12], borderColor:'#1D9E75', tension:0.3, fill:false, pointRadius:4, borderWidth:2, borderDash:[5,3] }
+    ]
+  },
+  options: defOpts()
+});
+
+// YouTube episodes
+const ytEpData = [[197,106,17,7,4],[21,55,7,6,0],[0,29,50,13,2],[0,0,49,8,1],[0,0,0,40,4]];
+new Chart(document.getElementById('chartYouTubeEp'), {
+  type: 'bar',
+  data: {
+    labels: ['Jan','Feb','Mar','Apr','May'],
+    datasets: ytEpData.map((d,i) => ({ label: epNames[i], data: d, backgroundColor: epColors[i], borderRadius:3 }))
+  },
+  options: { ...defOpts(), plugins:{legend:{display:false}}, scales:{ x:{grid:{color:'rgba(128,128,128,0.1)'},ticks:{color:'#888',font:{size:11}}}, y:{beginAtZero:true,grid:{color:'rgba(128,128,128,0.1)'},ticks:{color:'#888',font:{size:11}}} } }
+});
+
+// FameHost line
+new Chart(document.getElementById('chartFameLine'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: [
+      { label: 'Downloads', data: [39,115,63,86], borderColor:'#D4537E', tension:0.3, fill:false, pointRadius:4, borderWidth:2 },
+      { label: 'Listeners', data: [20,54,44,83], borderColor:'#1D9E75', tension:0.3, fill:false, pointRadius:4, borderWidth:2, borderDash:[5,3] }
+    ]
+  },
+  options: defOpts()
+});
+
+// FameHost episodes
+const fameEpData = [[10,36,14,10],[29,64,9,8],[0,15,18,4],[0,0,22,14],[0,0,0,30],[0,0,0,20]];
+new Chart(document.getElementById('chartFameEp'), {
+  type: 'bar',
+  data: {
+    labels: months,
+    datasets: fameEpData.map((d,i) => ({ label: epNames[i], data: d, backgroundColor: epColors[i], borderRadius:3 }))
+  },
+  options: { ...defOpts(), plugins:{legend:{display:false}}, scales:{ x:{grid:{color:'rgba(128,128,128,0.1)'},ticks:{color:'#888',font:{size:11}}}, y:{beginAtZero:true,grid:{color:'rgba(128,128,128,0.1)'},ticks:{color:'#888',font:{size:11}}} } }
+});
+</script>
